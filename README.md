@@ -1,7 +1,7 @@
 FBpp
 ========
 
-Facebook Profiles Picture - it's a very simple tool till now all it does for now is to fetch pictures from Facebook profiles and store it inside a folder then generate a hash for the image, Hexadecimal values or a binary values.
+Facebook Profiles Picture - it's a very simple tool till now all it does for now is to fetch pictures from Facebook profiles and store it inside a folder then generate a hash for the image, Hexadecimal values or a binary values, Then stores the hashed values inside MySQL database.
 
 What's new?
 ============

@@ -20,6 +20,9 @@
  *
  */
 
+//Require config.php file to connect with mysql server and the db.
+require_once('config.php');
+
 //Calling PHasher class file.
 include_once('phasher/phasher.class.php');
 $I = PHasher::Instance();
@@ -27,7 +30,7 @@ $I = PHasher::Instance();
 //This line to prevent execution timeout.
 set_time_limit(0);
 //Pictures number you want to fetch from Facebook.
-$pics_no = 100;
+$pics_no = 1000;
 
 //This is the loop to fetch the number of profile pictures and save it inside avatar folder.
 for($fid=2; $fid<=$pics_no; $fid++){
@@ -35,13 +38,17 @@ $img = @file_get_contents('https://graph.facebook.com/'.$fid.'/picture?type=larg
 $file = dirname(__file__).'/avatar/'.$fid.'.jpg';
 file_put_contents($file, $img);
 
-echo '<a href="https://www.facebook.com/profile.php?id='.$fid.'"><img src="avatar/'.$fid.'.jpg" /></a><br />';
+//echo '<a href="https://www.facebook.com/profile.php?id='.$fid.'"><img src="avatar/'.$fid.'.jpg" /></a><br />';
 
 //PHasher class to hash the images to hexdecimal values or binary values.
 $hash = $I->FastHashImage($file);
-echo "hex: ".$I->HashAsString($hash). "<br />";
-echo "bin: ".$I->HashAsString($hash, false). "<br />";
-echo "visual: ".$I->HashAsTable($hash). "<br />";
+$hex = $I->HashAsString($hash);
+//echo "hex: " .$hex. "<br />";
+//echo "bin: ".$I->HashAsString($hash, false). "<br />";
+//echo "visual: ".$I->HashAsTable($hash). "<br />";
+
+//This is to store facebook id and hashed values for the images in hexa values.
+mysql_query("INSERT INTO images(fid, hash) VALUES ('$fid', '$hex')");
 }
 
 //This line to print the number of images that have been fetched.
