@@ -1,4 +1,4 @@
-<?
+<?php
 /*	Copyright 2014
  *	Written by Ahmed Jadelrab - jadolyo@gmail.com
  *	
