@@ -21,20 +21,10 @@ What is my vision?
 What is the advantages of this tool?
 =====================================
 
-*It might used for predicting things in some countries, or to count something.
+*It might used for predicting things in some countries, or to count something likr:
 
--How many people are using a specific political sign?
+-How many people are supporting certain political figure?
 
-*Like in Egypt a lot of people putting Rabia sign as a profile picture.
-
--How many people are supporting certain political figure ?
-
--How many people are putting Morsi's or El-Sisi's pictures in their profiles?
-
--How many people are putting black color pictures?
-
-*Or it might in some countries they like a specific color.
-
-*Maybe some events makes people changes their profiles pictures to a specific picture supporting Gaza like what happened between Gaza and Israel.
+-Maybe some events makes people change their profile picture to a specific picture supporting that event.
 
 *There are alot of possibilities to use this idea in useful things in social media and other fields.

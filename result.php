@@ -43,9 +43,9 @@ if ($_FILES["file"]["error"] > 0) {
 	echo "Invalid file";
 }
 
-$result = mysql_query("SELECT `fid`,`hash` FROM `images`");
+$result = mysqli_query($con, "SELECT `fid`,`hash` FROM `images`");
 
-while($row  = mysql_fetch_array($result)){
+while($row  = mysqli_fetch_array($result)){
 	if($row['hash'] == $hex){
 		echo $row['hash'];
 		$fid = $row['fid'];
