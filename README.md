@@ -21,7 +21,7 @@ What is my vision?
 What is the advantages of this tool?
 =====================================
 
-*It might used for predicting things in some countries, or to count something likr:
+*It might used for predicting things in some countries, or to count something like:
 
 -How many people are supporting certain political figure?
 

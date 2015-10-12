@@ -38,8 +38,19 @@ $arrContextOptions=array(
     ),
 );
 
+//This is to check if the database contains hashed pictures or it's empty.
+$check = mysqli_query($con, "SELECT fid FROM images ORDER BY fid DESC LIMIT 1;");
+if(mysqli_num_rows($check) > 0){
+
+	$max_fid = mysqli_fetch_row($check);
+
+	$fid = $max_fid[0]+1;
+} else {
+	$fid = 4;
+}
+
 //This is infinte while loop to fetch the number of profile pictures and save it inside avatar folder.
-$initial = 4;
+$initial = $fid;
 
 while($fid = $initial){
 

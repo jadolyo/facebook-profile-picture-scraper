@@ -1,1 +1,0 @@
-http://stackoverflow.com/questions/9680676/save-facebook-profile-image-using-curl
