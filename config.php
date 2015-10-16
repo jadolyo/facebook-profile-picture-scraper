@@ -1,12 +1,17 @@
 <?php
 
-$hostname = "localhost"; 
-$dbname   = "fbpp"; 
-$username = "root";
-$password = "";
+$hostname = "";		// Your host name eg. localhost
+$dbname   = "";		// Your database name.
+$username = "";		// Your database username.
+$password = "";		// Your database password.
 
 //Connection to the database.
-$con = mysqli_connect($hostname, $username, $password, $dbname)
-or die("Unable to connect to Mysql.");
+$con = mysqli_connect($hostname, $username, $password, $dbname);
+
+//Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
 
 ?>

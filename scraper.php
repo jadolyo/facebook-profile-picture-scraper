@@ -27,7 +27,7 @@ require_once('config.php');
 include_once('phasher/phasher.class.php');
 $I = PHasher::Instance();
 
-//This line to prevent execution timeout.
+//Prevent execution timeout.
 set_time_limit(0);
 
 //Solving SSL or https problem.
@@ -38,7 +38,7 @@ $arrContextOptions=array(
     ),
 );
 
-//This is to check if the database contains hashed pictures or it's empty.
+//Check if the database contains hashed pictures or if it's empty, Then start from the latest hashed picture or start from 4.
 $check = mysqli_query($con, "SELECT fid FROM images ORDER BY fid DESC LIMIT 1;");
 if(mysqli_num_rows($check) > 0){
 
@@ -49,7 +49,7 @@ if(mysqli_num_rows($check) > 0){
 	$fid = 4;
 }
 
-//This is infinte while loop to fetch the number of profile pictures and save it inside avatar folder.
+//Infinte while loop to fetch profiles pictures and save them inside avatar folder.
 $initial = $fid;
 
 while($fid = $initial){
@@ -58,18 +58,19 @@ while($fid = $initial){
 	$file = dirname(__file__).'/avatar/'.$fid.'.jpg';
 	file_put_contents($file, $img);
 
-	//PHasher class to hash the images to hexdecimal values or binary values.
+	//PHasher class call to hash the images to hexdecimal values or binary values.
 	$hash = $I->FastHashImage($file);
 	$hex = $I->HashAsString($hash);
 
-	//Exclude deleted profiles.
+	//Exclude deleted profiles or corrupted pictures.
 	if($hex == '0000000000000000'){
 		$initial++;
 	} else{
-		//This is to store facebook id and hashed values for the images in hexa values.
-	mysqli_query($con, "INSERT INTO images(fid, hash) VALUES ('$fid', '$hex')");
 
-	$initial++;
+	//Store Facebook id and hashed values for the images in hexa values.
+		mysqli_query($con, "INSERT INTO images(fid, hash) VALUES ('$fid', '$hex')");
+
+		$initial++;
 	}
 }
 

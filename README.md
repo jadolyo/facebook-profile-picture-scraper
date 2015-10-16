@@ -28,3 +28,11 @@ What is the advantages of this tool?
 -Maybe some events makes people change their profile picture to a specific picture supporting that event.
 
 *There are alot of possibilities to use this idea in useful things in social media and other fields.
+
+
+How to install?
+================
+
+1- You need to create the database first, You will find fbpp.sql file inside db folder.
+2- You need to Edit some variables inside config.php
+3- You need to run scraper.php to scrap some pictures.
