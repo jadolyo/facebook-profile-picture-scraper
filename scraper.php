@@ -1,6 +1,6 @@
 <?php
 /*	Copyright 2014
- *	Written by Ahmed Jadelrab - jadolyo@gmail.com
+ *	Written by Ahmed Jadelrab - ahmad.jadelrab@gmail.com
  *	
  *	This file is part of FBpp
  *	
@@ -24,7 +24,7 @@
 require_once('config.php');
 
 //Calling PHasher class file.
-include_once('phasher/phasher.class.php');
+include_once('classes/phasher.class.php');
 $I = PHasher::Instance();
 
 //Prevent execution timeout.
@@ -54,24 +54,45 @@ $initial = $fid;
 
 while($fid = $initial){
 
-	$img = file_get_contents('https://graph.facebook.com/'.$fid.'/picture?width=378&height=378', false, stream_context_create($arrContextOptions));
-	$file = dirname(__file__).'/avatar/'.$fid.'.jpg';
-	file_put_contents($file, $img);
+	$url = 'https://graph.facebook.com/'.$fid.'/picture?width=378&height=378';
+
+	$deletedProfile = "https://z-1-static.xx.fbcdn.net/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif";
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // follow the redirects
+	curl_setopt($ch, CURLOPT_HEADER, false); // no needs to pass the headers to the data stream
+	curl_setopt($ch, CURLOPT_NOBODY, true); // get the resource without a body
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // accept any server certificate
+	curl_exec($ch);
+
+	// get the last used URL
+	$lastUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+
+	curl_close($ch);
+
+	if($lastUrl == $deletedProfile){
+		$initial++;
+	}else{
+		$imageUrl = file_get_contents($url, false, stream_context_create($arrContextOptions));
+		$savedImage = dirname(__file__).'/avatar/image.jpg';
+		file_put_contents($savedImage, $imageUrl);
+
+		//Exclude deleted profiles or corrupted pictures.
+	if(getimagesize($savedImage) > 0 ){
 
 	//PHasher class call to hash the images to hexdecimal values or binary values.
-	$hash = $I->FastHashImage($file);
-	$hex = $I->HashAsString($hash);
+		$hash = $I->FastHashImage($savedImage);
+		$hex = $I->HashAsString($hash);
 
-	//Exclude deleted profiles or corrupted pictures.
-	if($hex == '0000000000000000'){
-		$initial++;
-	} else{
-
-	//Store Facebook id and hashed values for the images in hexa values.
+		//Store Facebook id and hashed values for the images in hexa values.
 		mysqli_query($con, "INSERT INTO images(fid, hash) VALUES ('$fid', '$hex')");
 
 		$initial++;
+	} else {
+		$initial++;
 	}
+}
 }
 
 ?>
