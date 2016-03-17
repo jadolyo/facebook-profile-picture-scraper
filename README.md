@@ -19,7 +19,7 @@ What is my vision?
 
 *My vision is to make image reverse search tool for Facebook profiles pictures, I want to use OpenCV for face recognition too in the future.
 
-What is the advantages of this tool?
+What are the advantages of this tool?
 =====================================
 
 *It might be used for predicting things in some countries, or to count something like:
